@@ -13,6 +13,11 @@ var options = {
 var results, count;
 
 
+function insertData(results) {
+    console.log(results);
+}
+
+
 function getMoreResults(url) {
 
     request(url, function (error, response, body) {
@@ -22,12 +27,13 @@ function getMoreResults(url) {
 
             if (body.next) {
                 getMoreResults(body.next);
+            } else {
+                insertData(results);
             };
         }
     });
-    
-}
 
+}
 
 
 // Start the request
