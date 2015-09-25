@@ -1,4 +1,7 @@
 var request = require('request');
+var express = require('express');
+
+var app = express();
 
 var options = {
     url: 'http://realtime.influenceexplorer.com/api//candidates/?apikey=5fb0ee006d904354961ae1e83e80011b&office=P&format=json',
@@ -23,10 +26,12 @@ function getMoreResults(url) {
     request(url, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             // Print out the response body
-            results.concat(body.results);
+            results.concat(response.body['results']);
+
+            console.log('adding more results...');
 
             if (body.next) {
-                getMoreResults(body.next);
+                getMoreResults(response.body.next);
             } else {
                 insertData(results);
             };
@@ -40,11 +45,17 @@ function getMoreResults(url) {
 request(options, function (error, response, body) {
     if (!error && response.statusCode == 200) {
         // Print out the response body
-        results = body.results;
-        count = body.count
+        jsonResponse = JSON.parse(body);
+        results = jsonResponse.results;
+        count = jsonResponse.count;
 
-        if (body.next) {
-            getMoreResults(body.next);
-        };
+        console.log('first results in');
+        console.log(results);
+
+        /*if (response.body.next) {
+            getMoreResults(response.body.next);
+        };*/
     }
 });
+
+app.listen(8080);
