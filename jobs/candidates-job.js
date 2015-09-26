@@ -3,17 +3,24 @@ var express = require('express');
 var fs = require('fs');
 var app = express();
 
-/*var MongoClient = require('mongodb').MongoClient;
+var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
-var url = 'mongodb://localhost:27017/sunlight';*/
+var url = 'mongodb://localhost:27017/sunlight';
 
-/*var insertDocument = function(results, db, callback) {
-   db.collection('candidates').save(results, function(err, result) {
+var insertDocument = function(results, db, callback) {
+    var data = {
+        candidates: results
+    };
+
+    db.collection('candidates').remove();
+
+    db.collection('candidates').save(data, function(err, result) {
     assert.equal(err, null);
+    console.log(result);
     console.log("Inserted a document into the candidates collection.");
   });
-};*/
+};
 
 
 exports.getCandidates = function(agenda) {
@@ -46,13 +53,13 @@ exports.getCandidates = function(agenda) {
                 }
             }); 
 
-           /* MongoClient.connect(url, function(err, db) {
+            MongoClient.connect(url, function(err, db) {
               assert.equal(null, err);
 
               insertDocument(results, db, function() {
                   db.close();
               });
-            });*/
+            });
 
 
         }
