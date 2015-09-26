@@ -3,8 +3,8 @@ var express = require('express');
 var fs = require('fs');
 var app = express();
 
-exports.updateCandidatesJSON = function(agenda) {
-    agenda.define('show message', function(job, done) {
+exports.getCandidates = function(agenda) {
+    agenda.define('get candidates', function(job, done) {
         var options = {
             url: 'http://realtime.influenceexplorer.com/api//candidates/?apikey=5fb0ee006d904354961ae1e83e80011b&office=P&format=json',
             method: 'GET',
@@ -22,7 +22,7 @@ exports.updateCandidatesJSON = function(agenda) {
             console.log('final results');
             console.log(results);
 
-            var outputFilename = 'candidates.json';
+            var outputFilename = '../candidates.json';
 
             fs.writeFile(outputFilename, JSON.stringify(results, null), function(err) {
                 if(err) {
