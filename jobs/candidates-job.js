@@ -17,7 +17,6 @@ var insertDocument = function(results, db, callback) {
 
     db.collection('candidates').save(data, function(err, result) {
     assert.equal(err, null);
-    console.log(result);
     console.log("Inserted a document into the candidates collection.");
   });
 };
@@ -42,6 +41,8 @@ exports.getCandidates = function(agenda) {
 
         function insertData(results) {
             console.log('final results in');
+
+            results = results.slice(0, 25);
 
             var outputFilename = '../candidates.json';
 
