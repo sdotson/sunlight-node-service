@@ -1,13 +1,11 @@
-/*var express = require('express');
-var app = express();*/
+var express = require('express');
+var app = express();
 
 var jobSchedule = require('./job-schedule.js');
 jobSchedule.setupJobs();
 
-console.log('started...');
-
-/*app.get('/candidates', function(request, response) {
-    response.json({});
+app.get('/candidates', function(request, response) {
+    response.json({whoa: 'hey man'});
 });
 
-app.listen(8080);*/
+app.listen(8080);

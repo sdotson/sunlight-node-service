@@ -17,10 +17,8 @@ var url = 'mongodb://localhost:27017/sunlight';*/
 
 
 exports.getCandidates = function(agenda) {
-    console.log('inside export');
 
     agenda.define('get candidates', function(job, done) {
-        console.log('inside job');
 
         var options = {
             url: 'http://realtime.influenceexplorer.com/api//candidates/?apikey=5fb0ee006d904354961ae1e83e80011b&office=P&format=json',
@@ -84,7 +82,6 @@ exports.getCandidates = function(agenda) {
 
 
         request(options, function (error, response, body) {
-            console.log('inside request');
             
             if (!error && response.statusCode == 200) {
                 
