@@ -19,8 +19,7 @@ exports.getCandidates = function(agenda) {
 
 
         function insertData(results) {
-            console.log('final results');
-            console.log(results);
+            console.log('final results in');
 
             var outputFilename = '../candidates.json';
 
