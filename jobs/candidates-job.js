@@ -1,8 +1,5 @@
 var request = require('request');
-/*var express = require('express');*/
 var fs = require('fs');
-/*var app = express();*/
-
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
