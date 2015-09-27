@@ -1,16 +1,16 @@
 var request = require('request');
-var express = require('express');
+/*var express = require('express');*/
 var fs = require('fs');
-var app = express();
+/*var app = express();*/
 
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
 var url = 'mongodb://localhost:27017/sunlight';
 
-var insertDocument = function(results, db, callback) {
+function insertDocument(results, db, callback) {
     var data = {
-        candidates: results
+        data: results
     };
 
     db.collection('candidates').remove();
@@ -20,6 +20,14 @@ var insertDocument = function(results, db, callback) {
     console.log("Inserted a document into the candidates collection.");
   });
 };
+
+function sortByKey(array, key) {
+    return array.sort(function(a,b) {
+        var x = a[key], 
+            y = b[key];
+        return ((x < y) ? -1 : ((x > y) ? 1: 0));
+    });
+}
 
 
 exports.getCandidates = function(agenda) {
@@ -42,6 +50,7 @@ exports.getCandidates = function(agenda) {
         function insertData(results) {
             console.log('final results in');
 
+            sortByKey(results, "total_contributions");
             results = results.slice(0, 25);
 
             var outputFilename = '../candidates.json';
