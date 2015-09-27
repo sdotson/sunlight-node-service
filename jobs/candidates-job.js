@@ -23,8 +23,8 @@ function insertDocument(results, db, callback) {
 
 function sortByKey(array, key) {
     return array.sort(function(a,b) {
-        var x = a[key], 
-            y = b[key];
+        var x = parseFloat(a[key]), 
+            y = parseFloat(b[key]);
         return ((x < y) ? -1 : ((x > y) ? 1: 0));
     });
 }
@@ -44,13 +44,12 @@ exports.getCandidates = function(agenda) {
             }
         }
 
-        var results, count;
+        var results = [], count;
 
 
         function insertData(results) {
             console.log('final results in');
-
-            sortByKey(results, "total_contributions");
+            results = sortByKey(results, "total_contributions").reverse();
             results = results.slice(0, 25);
 
             var outputFilename = '../candidates.json';
@@ -84,8 +83,7 @@ exports.getCandidates = function(agenda) {
                         next = jsonResponse.next;
 
                     console.log('adding more results...');
-
-                    results.concat(jsonResponse.results);
+                    results = results.concat(jsonResponse.results);
 
                     if (next) {
                         getMoreResults(next);
